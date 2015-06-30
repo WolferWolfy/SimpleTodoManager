@@ -77,6 +77,8 @@
 				0BB1557C1B2EEF700048355A /* Sources */,
 				0BB1557D1B2EEF700048355A /* Frameworks */,
 				0BB1557E1B2EEF700048355A /* Resources */,
+				0B8A59851B3434C8000A2E48 /* Increment build number */,
+				0B8A59861B3434E4000A2E48 /* Add layer to icon */,
 			);
 			buildRules = (
 			);
@@ -131,6 +133,37 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0B8A59851B3434C8000A2E48 /* Increment build number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment build number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PROJECT_DIR}/Scripts/bump_build_number.sh \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
+		};
+		0B8A59861B3434E4000A2E48 /* Add layer to icon */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Add layer to icon";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" != \"Release\" ]; then\n\"${SRCROOT}/Scripts/iconVersioning.sh\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0BB1557C1B2EEF700048355A /* Sources */ = {
@@ -287,6 +320,7 @@
 				0BB155971B2EEF700048355A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

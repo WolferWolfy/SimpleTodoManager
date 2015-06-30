@@ -10,12 +10,13 @@ import UIKit
 import CoreData
 
 
-class ViewController: UIViewController, UITableViewDataSource{
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     @IBOutlet weak var tableView: UITableView!
     
     var todos = [NSManagedObject]()
     
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "\"The List\""
@@ -49,13 +50,15 @@ class ViewController: UIViewController, UITableViewDataSource{
         }
     }
 
-
+    
+    // MARK - Business Logic
+    
     @IBAction func addItem(sender: UIBarButtonItem) {
         
         let alert = UIAlertController(title: "New name",  message: "Add a new name", preferredStyle: .Alert)
         
         let saveAction = UIAlertAction(title: "Save", style: .Default) { (action: UIAlertAction!) -> Void in
-                
+            
                 let textField = alert.textFields![0] as UITextField!
                 self.saveTodo(textField.text)
                 self.tableView.reloadData()
@@ -73,7 +76,6 @@ class ViewController: UIViewController, UITableViewDataSource{
         
         presentViewController(alert, animated: true, completion: nil)
     }
-    
     
     
     func saveTodo(title: String?) {
@@ -101,6 +103,28 @@ class ViewController: UIViewController, UITableViewDataSource{
         todos.append(todoItem)
     }
     
+    func deleteTodo(index: Int) {
+        //1
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        //2
+        let entity =  todos[index]
+        
+        managedContext.deleteObject(entity)
+        
+        do {
+            try managedContext.save()
+        }
+        catch {
+            print("Could not save \(error)")
+        }
+        //5
+        todos.removeAtIndex(index)
+        tableView.reloadData()
+    }
+    
     
     // MARK: UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -117,6 +141,16 @@ class ViewController: UIViewController, UITableViewDataSource{
         return cell
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
     
-   }
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            deleteTodo(indexPath.row)
+        }
+    }
+    
+    
+}
 
