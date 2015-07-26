@@ -15,6 +15,7 @@
 		0BB155911B2EEF700048355A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB1558F1B2EEF700048355A /* LaunchScreen.storyboard */; };
 		4975E7171B52872900FDF13E /* TodoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975E7161B52872900FDF13E /* TodoDetailsViewController.swift */; };
 		4975E7191B5D867400FDF13E /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975E7181B5D867400FDF13E /* TodoItem.swift */; };
+		498B5EA61B64F8A200A6F0A5 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498B5EA51B64F8A200A6F0A5 /* CoreDataManager.swift */; };
 		498D832B1B4F12F200840682 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498D832A1B4F12F200840682 /* TodoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		0BB155921B2EEF700048355A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4975E7161B52872900FDF13E /* TodoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoDetailsViewController.swift; sourceTree = "<group>"; };
 		4975E7181B5D867400FDF13E /* TodoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		498B5EA51B64F8A200A6F0A5 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		498D832A1B4F12F200840682 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +74,7 @@
 				498D832A1B4F12F200840682 /* TodoTableViewCell.swift */,
 				4975E7161B52872900FDF13E /* TodoDetailsViewController.swift */,
 				4975E7181B5D867400FDF13E /* TodoItem.swift */,
+				498B5EA51B64F8A200A6F0A5 /* CoreDataManager.swift */,
 			);
 			path = TodoManager;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				0BB1558C1B2EEF700048355A /* TodoManager.xcdatamodeld in Sources */,
 				0BB155841B2EEF700048355A /* AppDelegate.swift in Sources */,
 				4975E7191B5D867400FDF13E /* TodoItem.swift in Sources */,
+				498B5EA61B64F8A200A6F0A5 /* CoreDataManager.swift in Sources */,
 				498D832B1B4F12F200840682 /* TodoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -18,14 +18,17 @@ class TodoDetailsViewController: UIViewController {
     
     var isNew = false
     
+    let coreDataManager = CoreDataManager.sharedInstance
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        titleTextField.text = todoItem?.title
-        
-      //  self.addCancelButton()
+        if let index = coreDataManager.selectedIndex {
+            todoItem = coreDataManager.todoItems[index]
+            // Do any additional setup after loading the view.
+            titleTextField.text = todoItem?.title
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,40 +54,28 @@ class TodoDetailsViewController: UIViewController {
         
 
         if isNew {
-            self.saveTodo(titleTextField.text)
+            coreDataManager.saveTodo(titleTextField.text)
             cancelButtonPressed(self)
         }
         else {
+            //&
             print("update")
+            guard let todo = todoItem else {
+                print("we fail")
+                return
+            }
+            guard let todoTitle = titleTextField.text else {
+                print("we fail")
+                return
+            }
+            
+            todo.title = todoTitle
+            
+            coreDataManager.updateTodo(todoTitle)
+            
             self.navigationController?.popViewControllerAnimated(true)
         }
-        
-    }
     
-    func saveTodo(title: String?) {
-        //1
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        
-        //2
-        let entity =  NSEntityDescription.entityForName("Todo", inManagedObjectContext: managedContext)
-        
-        let todoItem = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:managedContext)
-        
-        //3
-        todoItem.setValue(title, forKey: "title")
-        
-        //4
-        do {
-            try managedContext.save()
-        }
-        catch {
-            print("Could not save \(error)")
-        }
-        //5
-        // todos.append(todoItem)
-       
     }
   
 }
