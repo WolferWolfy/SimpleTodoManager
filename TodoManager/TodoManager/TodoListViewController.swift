@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TodoListViewController.swift
 //  TodoManager
 //
 //  Created by Farkas Marton Imre on 15/06/15.
@@ -10,22 +10,32 @@ import UIKit
 import CoreData
 
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class TodoListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     @IBOutlet weak var tableView: UITableView!
     
     var todos = [NSManagedObject]()
+    var todoItems = [TodoItem]()
+    var selectedIndex: Int?
     
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "\"The List\""
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+      //  tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TodoTableViewCell")
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        fetchTodos()
+        
+    }
+
+    
+    // MARK: Business Logic
+    
+    func fetchTodos() {
         //1
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
@@ -47,62 +57,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if let results = fetchedResults {
             todos  = results
+            self.convertNSManagedObjectToTodoItem(todos)
+            tableView.reloadData()
         }
     }
-
-    
-    // MARK - Business Logic
-    
-    @IBAction func addItem(sender: UIBarButtonItem) {
-        
-        let alert = UIAlertController(title: "New name",  message: "Add a new name", preferredStyle: .Alert)
-        
-        let saveAction = UIAlertAction(title: "Save", style: .Default) { (action: UIAlertAction!) -> Void in
-            
-                let textField = alert.textFields![0] as UITextField!
-                self.saveTodo(textField.text)
-                self.tableView.reloadData()
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action: UIAlertAction!) -> Void in
-        }
-        
-        alert.addTextFieldWithConfigurationHandler {
-            (textField: UITextField!) -> Void in
-        }
-        
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-        
-        presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    
-    func saveTodo(title: String?) {
-        //1
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        
-        //2
-        let entity =  NSEntityDescription.entityForName("Todo", inManagedObjectContext: managedContext)
-        
-        let todoItem = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:managedContext)
-        
-        //3
-        todoItem.setValue(title, forKey: "title")
-        
-        //4
-        do {
-            try managedContext.save()
-        }
-        catch {
-            print("Could not save \(error)")
-        }
-        //5
-        todos.append(todoItem)
-    }
-    
     func deleteTodo(index: Int) {
         //1
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -122,21 +80,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         //5
         todos.removeAtIndex(index)
+        self.convertNSManagedObjectToTodoItem(todos)
         tableView.reloadData()
     }
     
     
     // MARK: UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return todos.count
+            return todoItems.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell!
+        let cell = tableView.dequeueReusableCellWithIdentifier("TodoTableViewCell") as! TodoTableViewCell
         
-        let todoItem = todos[indexPath.row]
-        cell.textLabel!.text = todoItem.valueForKey("title") as? String
+        let todoItem = todoItems[indexPath.row]
+        cell.textLabel!.text = todoItem.title
 
         return cell
     }
@@ -151,6 +110,43 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        selectedIndex = indexPath.row
+        return indexPath
+    }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+          if  segue.identifier == "addTodo" {
+            let todoDetailsVC = (segue.destinationViewController as! UINavigationController).viewControllers[0] as! TodoDetailsViewController
+            todoDetailsVC.addCancelButton()
+            return
+        }
+
+        guard let todoDetailsVC =  segue.destinationViewController as? TodoDetailsViewController else {
+            // pech
+            return
+        }
+            
+        // Do stuff with x
+        todoDetailsVC.todoItem = todoItems[selectedIndex!]
+
+    }
+    
+    
+    //MARK: Converters
+    
+    func convertNSManagedObjectToTodoItem(managedObjects: [NSManagedObject]) {
+        todoItems = [TodoItem]()
+        for managedTodo in managedObjects {
+            let todo = TodoItem()
+            todo.title = managedTodo.valueForKey("title") as! String
+            todoItems.append(todo)
+        }
+    }
 }
 
