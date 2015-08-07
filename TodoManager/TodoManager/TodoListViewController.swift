@@ -52,6 +52,7 @@ class TodoListViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             coreDataManager.deleteTodo(indexPath.row)
+            tableView.reloadData()
         }
     }
     
