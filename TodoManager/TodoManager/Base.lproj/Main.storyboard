@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Todo List View Controller-->
+        <!--Todos-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="TodoListViewController" id="BYZ-38-t0r" customClass="TodoListViewController" customModule="TodoManager" customModuleProvider="target" sceneMemberID="viewController">
@@ -49,10 +49,10 @@
                             <constraint firstAttribute="trailing" secondItem="X7c-th-xi2" secondAttribute="trailing" id="ZNU-Zn-iqJ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Xro-L0-rAH">
+                    <navigationItem key="navigationItem" title="Todos" id="Xro-L0-rAH">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="H4K-KL-4U5">
                             <connections>
-                                <segue destination="47U-CR-XjZ" kind="show" identifier="addTodo" id="we7-1i-Fhk"/>
+                                <segue destination="47U-CR-XjZ" kind="presentation" identifier="addTodo" id="we7-1i-Fhk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -124,14 +124,18 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ix8-2i-8E9">
-                                <rect key="frame" x="20" y="352" width="98" height="30"/>
+                                <rect key="frame" x="20" y="362" width="98" height="30"/>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="15"/>
                                 <state key="normal" title="Select category"/>
+                                <connections>
+                                    <action selector="selectCategoryPressed:" destination="tOk-ej-oj9" eventType="touchUpInside" id="pFO-ZS-68G"/>
+                                    <segue destination="lY7-WF-Aa9" kind="show" id="fAQ-sa-PJZ"/>
+                                </connections>
                             </button>
                             <datePicker contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="yOl-UT-YiT">
-                                <rect key="frame" x="20" y="177" width="560" height="160"/>
+                                <rect key="frame" x="20" y="177" width="560" height="170"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="zlw-lG-wLl"/>
+                                    <constraint firstAttribute="height" constant="170" id="zlw-lG-wLl"/>
                                 </constraints>
                                 <date key="date" timeIntervalSinceReferenceDate="460628631.01829499">
                                     <!--2015-08-07 08:23:51 +0000-->
@@ -183,18 +187,27 @@
                     <navigationItem key="navigationItem" title="Add/Edit Todo" id="Coz-PF-LFj">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="L4h-Pe-WcY">
                             <connections>
-                                <action selector="doneButtonPressed:" destination="tOk-ej-oj9" id="Cbh-2q-iBj"/>
+                                <action selector="doneButtonPressed:" destination="tOk-ej-oj9" id="dTF-gU-78n"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="titleLabel" destination="jfI-mS-bdc" id="6ZQ-IL-V9J"/>
+                        <outlet property="descriptionTextField" destination="be0-vH-alN" id="fHL-Xn-wMn"/>
+                        <outlet property="dueDatePicker" destination="yOl-UT-YiT" id="Nnt-1l-Y6T"/>
                         <outlet property="titleTextField" destination="Gzy-aN-aAE" id="lK0-zq-Xcc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DwT-0E-84u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2840" y="559"/>
+            <point key="canvasLocation" x="2850" y="559"/>
+        </scene>
+        <!--TodoCategory-->
+        <scene sceneID="AhP-H5-vQi">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TodoCategory" id="lY7-WF-Aa9" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h5O-2r-WfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3343" y="688"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Rec-MD-Ntr">
@@ -216,6 +229,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Ogq-sP-922"/>
+        <segue reference="jvl-qE-QDZ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -12,14 +12,23 @@ import CoreData
 class CoreDataManager {
     static let sharedInstance = CoreDataManager()
     
-    var todos = [NSManagedObject]()
+    let converter = CoreDataConverter.sharedInstance
     
+    var managedTodos = [NSManagedObject]()
     var todoItems = [TodoItem]()
+    
+    var managedCategories = [NSManagedObject]()
+    var todoCategories = [TodoCategory]()
+    
     var selectedIndex: Int?
     
-    // MARK: Business Logic
     
-    func saveTodo(title: String?) {
+    
+    // MARK: - Business Logic
+    
+    // MARK: Todo Methods
+    
+    func saveTodo(todo: TodoItem) {
         //1
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
@@ -31,7 +40,9 @@ class CoreDataManager {
         let todoItem = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:managedContext)
         
         //3
-        todoItem.setValue(title, forKey: "title")
+        todoItem.setValue(todo.title, forKey: "title")
+        todoItem.setValue(todo.itemDescription, forKey:"itemDescription")
+        todoItem.setValue(todo.dueDate, forKey: "dueDate")
         
         //4
         do {
@@ -42,19 +53,15 @@ class CoreDataManager {
         }
         //5
         // todos.append(todoItem)
-        
     }
+    
     func fetchTodos() {
-        //1
-        let appDelegate =
-        UIApplication.sharedApplication().delegate as! AppDelegate
+
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext
-        
-        //2
+
         let fetchRequest = NSFetchRequest(entityName:"Todo")
-        
-        //3
         
         var fetchedResults : [NSManagedObject]?
         do {
@@ -65,30 +72,25 @@ class CoreDataManager {
         }
         
         if let results = fetchedResults {
-            todos  = results
-            self.convertNSManagedObjectToTodoItem(todos)
-      //      tableView.reloadData()
+            managedTodos  = results
+            todoItems = converter.convertNSManagedObjectToTodoItems(managedTodos)
         }
     }
     
-    func updateTodo(newTitle: String) {
+    func updateTodo(todo: TodoItem) {
 
         deleteTodo(selectedIndex!)
         
-        saveTodo(newTitle)
-        
-        
-        
+        saveTodo(todo)
     }
     
     func deleteTodo(index: Int) {
-        //1
+
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext
         
-        //2
-        let entity =  todos[index]
+        let entity =  managedTodos[index]
         
         managedContext.deleteObject(entity)
         
@@ -99,19 +101,90 @@ class CoreDataManager {
             print("Could not save \(error)")
         }
         //5
-        todos.removeAtIndex(index)
-        self.convertNSManagedObjectToTodoItem(todos)
-     //   tableView.reloadData()
+        managedTodos.removeAtIndex(index)
+        todoItems = converter.convertNSManagedObjectToTodoItems(managedTodos)
     }
     
-    //MARK: Converters
+    //MARK: Category methods
     
-    func convertNSManagedObjectToTodoItem(managedObjects: [NSManagedObject]) {
-        todoItems = [TodoItem]()
-        for managedTodo in managedObjects {
-            let todo = TodoItem()
-            todo.title = managedTodo.valueForKey("title") as! String
-            todoItems.append(todo)
+    func saveCategory(category: TodoCategory) {
+        //1
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        //2
+        let entity =  NSEntityDescription.entityForName("Category", inManagedObjectContext: managedContext)
+        
+        let categoryItem = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:managedContext)
+        
+        //3
+        categoryItem.setValue(category.categoryName, forKey: "categoryName")
+        categoryItem.setValue(category.categoryDescription, forKey: "categoryDescription")
+        
+     //   categoryItem.setValue(category.todos, forKey: "todos")
+        
+        //4
+        do {
+            try managedContext.save()
+        }
+        catch {
+            print("Could not save \(error)")
+        }
+        //5
+        // todos.append(todoItem)
+    }
+    
+    
+    func fetchCategories() {
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        let fetchRequest = NSFetchRequest(entityName:"Category")
+        
+        var fetchedResults : [NSManagedObject]?
+        do {
+            fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject]
+        }
+        catch {
+            print("Could not fetch \(error)")
+        }
+        
+        if let results = fetchedResults {
+            managedCategories  = results
+            todoCategories = converter.convertNSManagedObjectToTodoCategories(managedCategories)
         }
     }
+    
+    func updateCategory(category: TodoCategory) {
+        
+        deleteTodo(selectedIndex!)
+        
+        saveCategory(category)
+    }
+    
+    func deleteCategory(index: Int) {
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        let entity =  managedCategories[index]
+        
+        managedContext.deleteObject(entity)
+        
+        do {
+            try managedContext.save()
+        }
+        catch {
+            print("Could not save \(error)")
+        }
+        //5
+        managedCategories.removeAtIndex(index)
+        todoCategories = converter.convertNSManagedObjectToTodoCategories(managedCategories)
+    }
+
+
 }

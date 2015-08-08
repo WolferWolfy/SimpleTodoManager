@@ -17,6 +17,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        let font = UIFont(name: "Optima-Regular", size: 15.0)!
+        UISegmentedControl.appearance().setTitleTextAttributes([NSFontAttributeName: font],
+            forState: UIControlState.Normal)
+        
+        let navigationBarFont = UIFont(name: "Optima-Regular", size: 17.0)!
+        
+        UINavigationBar.appearance().titleTextAttributes = [ NSFontAttributeName: navigationBarFont]//,  NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
+        let barButtonFont = UIFont(name: "Optima-Bold", size: 17.0)!
+        
+        UIBarButtonItem.appearance().setTitleTextAttributes([ NSFontAttributeName: barButtonFont], forState: UIControlState.Normal) //,  NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
+
+  /*      UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UINavigationBar.classForCoder(), nil]).setTitleTextAttributes([ NSFontAttributeName: navigationBarFont], forState: UIControlState.Normal)
+   */
+        /*
+        [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+            setTitleTextAttributes:
+        @{NSForegroundColorAttributeName:[UIColor whiteColor],
+            NSFontAttributeName:[UIFont fontWithName:@"Avenir-Book" size:17.0]
+        }
+        forState:UIControlStateNormal];
+        */
         return true
     }
 

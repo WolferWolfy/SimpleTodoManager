@@ -13,9 +13,10 @@ class TodoDetailsViewController: UIViewController {
     
     var todoItem: TodoItem?
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var descriptionTextField: UITextField!
     
+    @IBOutlet weak var dueDatePicker: UIDatePicker!
     var isNew = false
     
     let coreDataManager = CoreDataManager.sharedInstance
@@ -28,6 +29,10 @@ class TodoDetailsViewController: UIViewController {
             todoItem = coreDataManager.todoItems[index]
             // Do any additional setup after loading the view.
             titleTextField.text = todoItem?.title
+            descriptionTextField.text = todoItem?.itemDescription
+            if let dueDate = todoItem?.dueDate {
+                 dueDatePicker.date = dueDate
+            }
         }
     }
 
@@ -52,9 +57,25 @@ class TodoDetailsViewController: UIViewController {
     @IBAction func doneButtonPressed(sender: AnyObject) {
         print("done pressed")
         
+        guard let todoTitle = titleTextField.text else {
+            print("we fail")
+            return
+        }
+        guard let todoDescription = descriptionTextField.text else {
+            print("we fail")
+            return
+        }
 
         if isNew {
-            coreDataManager.saveTodo(titleTextField.text)
+            let todo =  TodoItem()
+            todo.title = todoTitle
+            todo.itemDescription = todoDescription;
+            todo.dueDate = dueDatePicker.date
+            
+            coreDataManager.saveTodo(todo)
+            
+            todoItem = todo;
+            
             cancelButtonPressed(self)
         }
         else {
@@ -64,18 +85,19 @@ class TodoDetailsViewController: UIViewController {
                 print("we fail")
                 return
             }
-            guard let todoTitle = titleTextField.text else {
-                print("we fail")
-                return
-            }
-            
+
             todo.title = todoTitle
+            todo.itemDescription = todoDescription;
+            todo.dueDate = dueDatePicker.date
             
-            coreDataManager.updateTodo(todoTitle)
+            coreDataManager.updateTodo(todo)
             
             self.navigationController?.popViewControllerAnimated(true)
         }
     
     }
   
+    @IBAction func selectCategoryPressed(sender: UIButton) {
+        
+    }
 }

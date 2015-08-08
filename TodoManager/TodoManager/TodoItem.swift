@@ -11,6 +11,7 @@ import Foundation
 class TodoItem {
     var title : String = ""
     var itemDescription : String?
+    var dueDate : NSDate?
     var todoCategory : TodoCategory?
     
 }

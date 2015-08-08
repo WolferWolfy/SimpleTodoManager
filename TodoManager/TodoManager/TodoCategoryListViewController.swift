@@ -1,16 +1,16 @@
 //
-//  TodoListViewController.swift
+//  TodoCategoryListViewController.swift
 //  TodoManager
 //
-//  Created by Farkas Marton Imre on 15/06/15.
+//  Created by Farkas Marton Imre on 07/08/15.
 //  Copyright © 2015 Farkas Marton Imre. All rights reserved.
 //
 
 import UIKit
-import CoreData
 
-class TodoListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class TodoCategoryListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    
     @IBOutlet weak var tableView: UITableView!
     
     let coreDataManager = CoreDataManager.sharedInstance
@@ -19,7 +19,7 @@ class TodoListViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      //  tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "TodoTableViewCell")
+          tableView.registerClass(TodoTableViewCell.self, forCellReuseIdentifier: "TodoTableViewCell")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -28,18 +28,18 @@ class TodoListViewController: UIViewController, UITableViewDataSource, UITableVi
         coreDataManager.fetchCategories()
         tableView.reloadData()
     }
-
+    
     
     // MARK: UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         return coreDataManager.todoItems.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("TodoTableViewCell") as! TodoTableViewCell
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell!
+        
         let todoItem = coreDataManager.todoItems[indexPath.row]
         cell.textLabel!.text = todoItem.title
         
@@ -68,14 +68,17 @@ class TodoListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-          if  segue.identifier == "addTodo" {
+        if  segue.identifier == "addTodo" {
             coreDataManager.selectedIndex = nil
             let todoDetailsVC = (segue.destinationViewController as! UINavigationController).viewControllers[0] as! TodoDetailsViewController
             todoDetailsVC.addCancelButton()
             return
         }
-
+        
     }
     
     
+    @IBAction func Grr(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
