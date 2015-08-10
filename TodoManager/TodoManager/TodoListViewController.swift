@@ -41,7 +41,7 @@ class TodoListViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCellWithIdentifier("TodoTableViewCell") as! TodoTableViewCell
 
         let todoItem = coreDataManager.todoItems[indexPath.row]
-        cell.textLabel!.text = todoItem.title
+        cell.titleLabel.text = todoItem.title
         
         return cell
     }

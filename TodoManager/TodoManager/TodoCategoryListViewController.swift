@@ -24,7 +24,6 @@ class TodoCategoryListViewController: UIViewController, UITableViewDataSource, U
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        coreDataManager.fetchTodos()
         coreDataManager.fetchCategories()
         tableView.reloadData()
     }
@@ -33,15 +32,21 @@ class TodoCategoryListViewController: UIViewController, UITableViewDataSource, U
     // MARK: UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return coreDataManager.todoItems.count
+        return coreDataManager.todoCategories.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell!
         
-        let todoItem = coreDataManager.todoItems[indexPath.row]
-        cell.textLabel!.text = todoItem.title
+        let todoCategory = coreDataManager.todoCategories[indexPath.row]
+        cell.textLabel!.text = todoCategory.categoryName
+        if let todos = todoCategory.todos {
+           cell.detailTextLabel!.text = String(todos.count)
+        } else {
+            cell.detailTextLabel?.text = "0";
+        }
+       // cell.detailTextLabel!.text = String(todoCategory.todos?.count)
         
         return cell
     }
@@ -52,7 +57,7 @@ class TodoCategoryListViewController: UIViewController, UITableViewDataSource, U
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            coreDataManager.deleteTodo(indexPath.row)
+            coreDataManager.deleteCategory(indexPath.row)
             tableView.reloadData()
         }
     }
@@ -68,10 +73,11 @@ class TodoCategoryListViewController: UIViewController, UITableViewDataSource, U
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if  segue.identifier == "addTodo" {
+        if  segue.identifier == "addCategory" {
             coreDataManager.selectedIndex = nil
-            let todoDetailsVC = (segue.destinationViewController as! UINavigationController).viewControllers[0] as! TodoDetailsViewController
-            todoDetailsVC.addCancelButton()
+            let todoCategoryDetailsVC = (segue.destinationViewController as! UINavigationController).viewControllers[0] as! TodoCategoryDetailsViewController
+            todoCategoryDetailsVC.addCancelButton()
+            todoCategoryDetailsVC.title = "Add Category"
             return
         }
         

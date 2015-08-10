@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ADf-MS-2mP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ADf-MS-2mP">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -22,15 +22,30 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoTableViewCell" id="axx-Yv-yi6" customClass="TodoTableViewCell" customModule="TodoManager" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoTableViewCell" id="axx-Yv-yi6" customClass="TodoTableViewCell" customModule="TodoManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="axx-Yv-yi6" id="o6O-yf-0aa">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGU-eS-aKO">
+                                                    <rect key="frame" x="8" y="11" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="KGU-eS-aKO" firstAttribute="centerY" secondItem="o6O-yf-0aa" secondAttribute="centerY" id="1y6-lp-KON"/>
+                                                <constraint firstItem="KGU-eS-aKO" firstAttribute="leading" secondItem="o6O-yf-0aa" secondAttribute="leadingMargin" id="Ez3-Wh-tZN"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="KGU-eS-aKO" secondAttribute="trailing" constant="8" id="IpQ-w9-Dfj"/>
+                                                <constraint firstItem="KGU-eS-aKO" firstAttribute="top" secondItem="o6O-yf-0aa" secondAttribute="topMargin" constant="3" id="cZG-aP-dn4"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.79447742109999997" blue="0.65824238540000002" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <connections>
+                                            <outlet property="titleLabel" destination="KGU-eS-aKO" id="nx7-lt-XOK"/>
                                             <segue destination="tOk-ej-oj9" kind="show" identifier="todoDetails" id="jvl-qE-QDZ"/>
                                         </connections>
                                     </tableViewCell>
@@ -124,7 +139,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ix8-2i-8E9">
-                                <rect key="frame" x="20" y="362" width="98" height="30"/>
+                                <rect key="frame" x="20" y="354" width="98" height="30"/>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="15"/>
                                 <state key="normal" title="Select category"/>
                                 <connections>
@@ -133,16 +148,16 @@
                                 </connections>
                             </button>
                             <datePicker contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="yOl-UT-YiT">
-                                <rect key="frame" x="20" y="177" width="560" height="170"/>
+                                <rect key="frame" x="20" y="177" width="560" height="162"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="170" id="zlw-lG-wLl"/>
+                                    <constraint firstAttribute="height" constant="162" id="zlw-lG-wLl"/>
                                 </constraints>
                                 <date key="date" timeIntervalSinceReferenceDate="460628631.01829499">
                                     <!--2015-08-07 08:23:51 +0000-->
                                 </date>
                             </datePicker>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.83119070780000004" blue="0.76024194830000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="r5r-GF-YeA" firstAttribute="leading" secondItem="jfI-mS-bdc" secondAttribute="leading" id="0I5-Bs-umx"/>
                             <constraint firstItem="be0-vH-alN" firstAttribute="width" secondItem="Gzy-aN-aAE" secondAttribute="width" id="2Vp-cJ-SON"/>
@@ -217,6 +232,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hFY-B7-yNX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="1" green="0.79447742110294461" blue="0.65824238535034696" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

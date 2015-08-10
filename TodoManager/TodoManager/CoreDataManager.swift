@@ -160,7 +160,7 @@ class CoreDataManager {
     
     func updateCategory(category: TodoCategory) {
         
-        deleteTodo(selectedIndex!)
+        deleteCategory(selectedIndex!)
         
         saveCategory(category)
     }
