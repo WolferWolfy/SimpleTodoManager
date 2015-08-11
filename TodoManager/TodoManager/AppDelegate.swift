@@ -33,19 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: barButtonFont, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: UIControlState.Normal) //,  NSForegroundColorAttributeName: UIColor.whiteColor()]
        
-        
-        
-
-  /*      UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UINavigationBar.classForCoder(), nil]).setTitleTextAttributes([ NSFontAttributeName: navigationBarFont], forState: UIControlState.Normal)
-   */
-        /*
-        [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-            setTitleTextAttributes:
-        @{NSForegroundColorAttributeName:[UIColor whiteColor],
-            NSFontAttributeName:[UIFont fontWithName:@"Avenir-Book" size:17.0]
-        }
-        forState:UIControlStateNormal];
-        */
         return true
     }
 

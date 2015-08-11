@@ -24,7 +24,7 @@ class TodoCategoryDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let index = coreDataManager.selectedIndex {
+        if let index = coreDataManager.selectedCategoryIndex {
             todoCategory = coreDataManager.todoCategories[index]
             // Do any additional setup after loading the view.
             nameTextField.text = todoCategory?.categoryName

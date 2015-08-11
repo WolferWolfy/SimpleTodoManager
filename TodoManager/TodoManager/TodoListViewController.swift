@@ -58,7 +58,7 @@ class TodoListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        coreDataManager.selectedIndex = indexPath.row
+        coreDataManager.selectedTodoIndex = indexPath.row
         return indexPath
     }
     
@@ -69,7 +69,7 @@ class TodoListViewController: UIViewController, UITableViewDataSource, UITableVi
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
           if  segue.identifier == "addTodo" {
-            coreDataManager.selectedIndex = nil
+            coreDataManager.selectedTodoIndex = nil
             let todoDetailsVC = (segue.destinationViewController as! UINavigationController).viewControllers[0] as! TodoDetailsViewController
             todoDetailsVC.addCancelButton()
             return

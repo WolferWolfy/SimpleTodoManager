@@ -14,7 +14,7 @@ class CoreDataConverter {
 
     //MARK: Converters
     
-    func convertNSManagedObjectToTodoItems(managedObjects: [NSManagedObject]) -> [TodoItem] {
+    func convertNSManagedsObjectToTodoItems(managedObjects: [NSManagedObject]) -> [TodoItem] {
         // TODO: try block
         
         var todoItems = [TodoItem]()
@@ -29,6 +29,9 @@ class CoreDataConverter {
             if let dueDate = managedTodo.valueForKey("dueDate") as? NSDate {
                 todo.dueDate = dueDate
             }
+            if let category = managedTodo.valueForKey("category") as? NSManagedObject {
+                 todo.todoCategory = convertNSManagedObjectToTodoCategory(category)
+            }
             
             todoItems.append(todo)
         }
@@ -36,25 +39,30 @@ class CoreDataConverter {
     
     }
     
-    func convertNSManagedObjectToTodoCategories(managedObjects: [NSManagedObject]) -> [TodoCategory] {
+    func convertNSManagedObjectsToTodoCategories(managedObjects: [NSManagedObject]) -> [TodoCategory] {
         // TODO: try block
         
         var todoCategories = [TodoCategory]()
         for managedCategory in managedObjects {
-            let category = TodoCategory()
-            if let name = managedCategory.valueForKey("categoryName") as? String {
-                category.categoryName = name
-            }
-            if let description = managedCategory.valueForKey("categoryDescription") as? String {
-                category.categoryDescription = description
-            }
-            if let todos = managedCategory.valueForKey("todos") as? NSMutableArray {
-                print(todos)
-                //category.todos
-            }
-            
-            todoCategories.append(category)
+            todoCategories.append(convertNSManagedObjectToTodoCategory(managedCategory))
         }
         return todoCategories
+    }
+    
+    func convertNSManagedObjectToTodoCategory(managedCategory: NSManagedObject) -> TodoCategory {
+        
+        let category = TodoCategory()
+        if let name = managedCategory.valueForKey("categoryName") as? String {
+            category.categoryName = name
+        }
+        if let description = managedCategory.valueForKey("categoryDescription") as? String {
+            category.categoryDescription = description
+        }
+        if let todos = managedCategory.valueForKey("todos") as? NSMutableArray {
+            print(todos)
+            //category.todos
+        }
+        
+        return category
     }
 }

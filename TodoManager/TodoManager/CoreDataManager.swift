@@ -20,7 +20,8 @@ class CoreDataManager {
     var managedCategories = [NSManagedObject]()
     var todoCategories = [TodoCategory]()
     
-    var selectedIndex: Int?
+    var selectedTodoIndex: Int?
+    var selectedCategoryIndex: Int?
     
     
     
@@ -43,6 +44,11 @@ class CoreDataManager {
         todoItem.setValue(todo.title, forKey: "title")
         todoItem.setValue(todo.itemDescription, forKey:"itemDescription")
         todoItem.setValue(todo.dueDate, forKey: "dueDate")
+        if let categoryIndex = selectedCategoryIndex {
+            let managedCategory = managedCategories[categoryIndex]
+            todoItem.setValue(managedCategory, forKey: "category")
+            
+        }
         
         //4
         do {
@@ -73,13 +79,13 @@ class CoreDataManager {
         
         if let results = fetchedResults {
             managedTodos  = results
-            todoItems = converter.convertNSManagedObjectToTodoItems(managedTodos)
+            todoItems = converter.convertNSManagedsObjectToTodoItems(managedTodos)
         }
     }
     
     func updateTodo(todo: TodoItem) {
 
-        deleteTodo(selectedIndex!)
+        deleteTodo(selectedTodoIndex!)
         
         saveTodo(todo)
     }
@@ -102,7 +108,7 @@ class CoreDataManager {
         }
         //5
         managedTodos.removeAtIndex(index)
-        todoItems = converter.convertNSManagedObjectToTodoItems(managedTodos)
+        todoItems = converter.convertNSManagedsObjectToTodoItems(managedTodos)
     }
     
     //MARK: Category methods
@@ -154,13 +160,13 @@ class CoreDataManager {
         
         if let results = fetchedResults {
             managedCategories  = results
-            todoCategories = converter.convertNSManagedObjectToTodoCategories(managedCategories)
+            todoCategories = converter.convertNSManagedObjectsToTodoCategories(managedCategories)
         }
     }
     
     func updateCategory(category: TodoCategory) {
         
-        deleteCategory(selectedIndex!)
+        deleteCategory(selectedCategoryIndex!)
         
         saveCategory(category)
     }
@@ -183,7 +189,7 @@ class CoreDataManager {
         }
         //5
         managedCategories.removeAtIndex(index)
-        todoCategories = converter.convertNSManagedObjectToTodoCategories(managedCategories)
+        todoCategories = converter.convertNSManagedObjectsToTodoCategories(managedCategories)
     }
 
 

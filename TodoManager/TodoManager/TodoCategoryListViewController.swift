@@ -13,6 +13,8 @@ class TodoCategoryListViewController: UIViewController, UITableViewDataSource, U
     
     @IBOutlet weak var tableView: UITableView!
     
+    var todoDetailsVC: TodoDetailsViewController!
+    
     let coreDataManager = CoreDataManager.sharedInstance
     
     // MARK: Life Cycle
@@ -63,18 +65,28 @@ class TodoCategoryListViewController: UIViewController, UITableViewDataSource, U
     }
     
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        coreDataManager.selectedIndex = indexPath.row
+        coreDataManager.selectedCategoryIndex = indexPath.row
         return indexPath
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let todoItem = todoDetailsVC.todoItem {
+            todoItem.todoCategory = coreDataManager.todoCategories[indexPath.row];
+            print("didSelect, title: \(todoItem.todoCategory?.categoryName)")
+ //           coreDataManager.updateTodo(todoItem)
+        }
+        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        todoDetailsVC.navigationController?.popViewControllerAnimated(true)
+        //self.navigationController?.popToRootViewControllerAnimated(true)
+        //self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if  segue.identifier == "addCategory" {
-            coreDataManager.selectedIndex = nil
+            coreDataManager.selectedCategoryIndex = nil
             let todoCategoryDetailsVC = (segue.destinationViewController as! UINavigationController).viewControllers[0] as! TodoCategoryDetailsViewController
             todoCategoryDetailsVC.addCancelButton()
             todoCategoryDetailsVC.title = "Add Category"

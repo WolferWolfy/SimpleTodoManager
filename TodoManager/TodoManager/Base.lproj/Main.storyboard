@@ -20,7 +20,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="X7c-th-xi2">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="0.83645533407593642" blue="0.77253803634791252" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoTableViewCell" id="axx-Yv-yi6" customClass="TodoTableViewCell" customModule="TodoManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="86" width="600" height="44"/>
@@ -29,8 +29,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGU-eS-aKO">
-                                                    <rect key="frame" x="8" y="11" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGU-eS-aKO">
+                                                    <rect key="frame" x="8" y="11" width="576" height="21"/>
                                                     <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -43,7 +43,7 @@
                                                 <constraint firstItem="KGU-eS-aKO" firstAttribute="top" secondItem="o6O-yf-0aa" secondAttribute="topMargin" constant="3" id="cZG-aP-dn4"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="1" green="0.79447742109999997" blue="0.65824238540000002" alpha="0.5" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.83119070780000004" blue="0.76024194830000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="titleLabel" destination="KGU-eS-aKO" id="nx7-lt-XOK"/>
                                             <segue destination="tOk-ej-oj9" kind="show" identifier="todoDetails" id="jvl-qE-QDZ"/>
@@ -128,7 +128,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dute date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Psm-Bd-Urq">
-                                <rect key="frame" x="20" y="151" width="86" height="21"/>
+                                <rect key="frame" x="20" y="156" width="86" height="21"/>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -139,9 +139,19 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ix8-2i-8E9">
-                                <rect key="frame" x="20" y="354" width="98" height="30"/>
+                                <rect key="frame" x="452" y="346" width="128" height="38"/>
+                                <color key="backgroundColor" red="1" green="0.79447742109999997" blue="0.65824238540000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="15"/>
-                                <state key="normal" title="Select category"/>
+                                <inset key="contentEdgeInsets" minX="15" minY="10" maxX="15" maxY="10"/>
+                                <state key="normal" title="Select category">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected">
+                                    <color key="titleColor" red="1" green="0.38823529410000002" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="0.38823529410000002" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="selectCategoryPressed:" destination="tOk-ej-oj9" eventType="touchUpInside" id="pFO-ZS-68G"/>
                                     <segue destination="lY7-WF-Aa9" kind="show" id="fAQ-sa-PJZ"/>
@@ -156,17 +166,23 @@
                                     <!--2015-08-07 08:23:51 +0000-->
                                 </date>
                             </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MxZ-6w-g9d">
+                                <rect key="frame" x="20" y="354" width="66" height="21"/>
+                                <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.83119070780000004" blue="0.76024194830000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="r5r-GF-YeA" firstAttribute="leading" secondItem="jfI-mS-bdc" secondAttribute="leading" id="0I5-Bs-umx"/>
                             <constraint firstItem="be0-vH-alN" firstAttribute="width" secondItem="Gzy-aN-aAE" secondAttribute="width" id="2Vp-cJ-SON"/>
                             <constraint firstItem="r5r-GF-YeA" firstAttribute="top" secondItem="jfI-mS-bdc" secondAttribute="bottom" constant="15" id="5i1-Nw-PdC"/>
                             <constraint firstItem="Gzy-aN-aAE" firstAttribute="centerY" secondItem="jfI-mS-bdc" secondAttribute="centerY" id="5lH-hV-rCm"/>
                             <constraint firstItem="jfI-mS-bdc" firstAttribute="top" secondItem="jN8-GJ-DJI" secondAttribute="bottom" constant="15" id="5mI-aq-Eip"/>
-                            <constraint firstItem="ix8-2i-8E9" firstAttribute="leading" secondItem="Psm-Bd-Urq" secondAttribute="leading" id="7L1-sk-8on"/>
                             <constraint firstItem="yOl-UT-YiT" firstAttribute="centerY" secondItem="Psm-Bd-Urq" secondAttribute="centerY" id="99G-G4-yjI"/>
-                            <constraint firstItem="Psm-Bd-Urq" firstAttribute="top" secondItem="r5r-GF-YeA" secondAttribute="bottom" constant="15" id="9Zf-OW-uPQ"/>
+                            <constraint firstItem="Psm-Bd-Urq" firstAttribute="top" secondItem="r5r-GF-YeA" secondAttribute="bottom" constant="20" id="9Zf-OW-uPQ"/>
                             <constraint firstItem="Gzy-aN-aAE" firstAttribute="leading" secondItem="jfI-mS-bdc" secondAttribute="trailing" constant="10" id="B1n-aC-QFh"/>
                             <constraint firstItem="be0-vH-alN" firstAttribute="leading" secondItem="r5r-GF-YeA" secondAttribute="trailing" constant="10" id="CVn-mG-aZ2"/>
                             <constraint firstItem="Psm-Bd-Urq" firstAttribute="leading" secondItem="r5r-GF-YeA" secondAttribute="leading" id="GLu-4a-sws"/>
@@ -174,18 +190,21 @@
                             <constraint firstItem="yOl-UT-YiT" firstAttribute="top" secondItem="be0-vH-alN" secondAttribute="bottom" constant="5" id="GWl-pf-RrK"/>
                             <constraint firstItem="yOl-UT-YiT" firstAttribute="centerX" secondItem="S7g-iF-LK1" secondAttribute="centerX" constant="100" id="Had-n5-bcW"/>
                             <constraint firstItem="yOl-UT-YiT" firstAttribute="centerY" secondItem="S7g-iF-LK1" secondAttribute="centerY" id="KQP-zu-6WG"/>
-                            <constraint firstItem="ix8-2i-8E9" firstAttribute="top" secondItem="yOl-UT-YiT" secondAttribute="bottom" constant="15" id="L1E-BN-azx"/>
                             <constraint firstItem="yOl-UT-YiT" firstAttribute="leading" secondItem="Psm-Bd-Urq" secondAttribute="trailing" constant="10" id="RFT-H5-tdM"/>
                             <constraint firstItem="yOl-UT-YiT" firstAttribute="trailing" secondItem="be0-vH-alN" secondAttribute="trailing" id="SWk-Rg-nIk"/>
                             <constraint firstItem="yOl-UT-YiT" firstAttribute="centerX" secondItem="S7g-iF-LK1" secondAttribute="centerX" id="W2c-Bi-AJi"/>
                             <constraint firstItem="yOl-UT-YiT" firstAttribute="leading" secondItem="Psm-Bd-Urq" secondAttribute="leading" id="Xmg-6x-MLQ"/>
                             <constraint firstItem="Gzy-aN-aAE" firstAttribute="width" secondItem="yOl-UT-YiT" secondAttribute="width" id="YDn-Am-984"/>
                             <constraint firstItem="r5r-GF-YeA" firstAttribute="width" secondItem="jfI-mS-bdc" secondAttribute="width" id="ar8-Ks-6Bl"/>
-                            <constraint firstItem="yOl-UT-YiT" firstAttribute="top" secondItem="Psm-Bd-Urq" secondAttribute="bottom" constant="5" id="fHm-vy-0LL"/>
+                            <constraint firstItem="yOl-UT-YiT" firstAttribute="top" secondItem="Psm-Bd-Urq" secondAttribute="bottom" id="fHm-vy-0LL"/>
                             <constraint firstItem="jfI-mS-bdc" firstAttribute="leading" secondItem="S7g-iF-LK1" secondAttribute="leadingMargin" id="fNw-Wp-Ula"/>
                             <constraint firstItem="Psm-Bd-Urq" firstAttribute="width" secondItem="r5r-GF-YeA" secondAttribute="width" id="i2k-em-Jg4"/>
+                            <constraint firstItem="ix8-2i-8E9" firstAttribute="trailing" secondItem="yOl-UT-YiT" secondAttribute="trailing" id="lf4-CX-aSF"/>
+                            <constraint firstItem="MxZ-6w-g9d" firstAttribute="top" secondItem="yOl-UT-YiT" secondAttribute="bottom" constant="15" id="nLY-qV-QPN"/>
                             <constraint firstItem="be0-vH-alN" firstAttribute="centerY" secondItem="r5r-GF-YeA" secondAttribute="centerY" id="qd2-88-iNS"/>
+                            <constraint firstItem="MxZ-6w-g9d" firstAttribute="leading" secondItem="yOl-UT-YiT" secondAttribute="leading" id="uWn-p7-t2e"/>
                             <constraint firstAttribute="trailing" secondItem="yOl-UT-YiT" secondAttribute="trailing" constant="20" id="x20-Oj-5U9"/>
+                            <constraint firstItem="MxZ-6w-g9d" firstAttribute="centerY" secondItem="ix8-2i-8E9" secondAttribute="centerY" id="x6L-dF-XZ9"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -198,6 +217,9 @@
                                 <exclude reference="x20-Oj-5U9"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="F6z-nr-GOE" appends="YES" id="ifN-jO-ROD"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Add/Edit Todo" id="Coz-PF-LFj">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="L4h-Pe-WcY">
@@ -207,12 +229,18 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="categoryLabel" destination="MxZ-6w-g9d" id="yLW-6e-gJC"/>
                         <outlet property="descriptionTextField" destination="be0-vH-alN" id="fHL-Xn-wMn"/>
                         <outlet property="dueDatePicker" destination="yOl-UT-YiT" id="Nnt-1l-Y6T"/>
                         <outlet property="titleTextField" destination="Gzy-aN-aAE" id="lK0-zq-Xcc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DwT-0E-84u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="F6z-nr-GOE">
+                    <connections>
+                        <action selector="textFieldResign:" destination="tOk-ej-oj9" id="b2X-2D-fL6"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2850" y="559"/>
         </scene>
