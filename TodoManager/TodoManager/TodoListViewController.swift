@@ -12,6 +12,9 @@ import CoreData
 class TodoListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     @IBOutlet weak var tableView: UITableView!
+
+    var sectionTitles = ["Todos"]
+    var dataSource: [TodoItem]?
     
     let coreDataManager = CoreDataManager.sharedInstance
     
@@ -28,16 +31,24 @@ class TodoListViewController: UIViewController, UITableViewDataSource, UITableVi
         coreDataManager.fetchCategories()
         tableView.reloadData()
     }
-
     
     // MARK: UITableViewDataSource
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return sectionTitles.count
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return coreDataManager.todoItems.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitles[section]
+    }
         
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCellWithIdentifier("TodoTableViewCell") as! TodoTableViewCell
 
         let todoItem = coreDataManager.todoItems[indexPath.row]
@@ -45,7 +56,6 @@ class TodoListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         return cell
     }
-    
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
@@ -76,6 +86,5 @@ class TodoListViewController: UIViewController, UITableViewDataSource, UITableVi
         }
 
     }
-    
     
 }

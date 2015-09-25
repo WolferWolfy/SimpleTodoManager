@@ -27,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().titleTextAttributes = [ NSFontAttributeName: navigationBarFont,  NSForegroundColorAttributeName: UIColor.whiteColor()]
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UINavigationBar.appearance().barTintColor = UIColor(red: 255.0/255.0, green: 203.0/255.0, blue: 168/255.0, alpha: 1.0)
+        UINavigationBar.appearance().barTintColor = UIColor(red: 255.0/255.0, green: 203.0/255.0, blue: 168.0/255.0, alpha: 1.0)
+      //  UINavigationBar.appearance().barTintColor = UIColor(red: 255.0/255.0, green: 161.0/255.0, blue: 60.0/255.0, alpha: 1.0)
         
         let barButtonFont = UIFont(name: "Optima-Bold", size: 17.0)!
         

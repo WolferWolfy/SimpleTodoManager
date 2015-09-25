@@ -91,16 +91,22 @@ class TodoDetailsViewController: UIViewController {
             print("we fail")
             return
         }
+        
+        guard let todoCategoryName = categoryLabel.text else {
+            print("we fail")
+            return
+        }
 
         if isNew {
             let todo =  TodoItem()
             todo.title = todoTitle
             todo.itemDescription = todoDescription;
             todo.dueDate = dueDatePicker.date
+            todo.todoCategory = coreDataManager.categoryForName(todoCategoryName)
             
             coreDataManager.saveTodo(todo)
             
-            todoItem = todo;
+            todoItem = todo
             
             cancelButtonPressed(self)
         }
@@ -115,6 +121,7 @@ class TodoDetailsViewController: UIViewController {
             todo.title = todoTitle
             todo.itemDescription = todoDescription;
             todo.dueDate = dueDatePicker.date
+            todo.todoCategory = coreDataManager.categoryForName(todoCategoryName)
            // todo.todoCategory = TODO: cannot update/find category for a todo
             
             coreDataManager.updateTodo(todo)

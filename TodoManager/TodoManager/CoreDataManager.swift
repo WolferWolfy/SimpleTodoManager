@@ -44,11 +44,18 @@ class CoreDataManager {
         todoItem.setValue(todo.title, forKey: "title")
         todoItem.setValue(todo.itemDescription, forKey:"itemDescription")
         todoItem.setValue(todo.dueDate, forKey: "dueDate")
+        
+        /*
         if let categoryIndex = selectedCategoryIndex {
             let managedCategory = managedCategories[categoryIndex]
             todoItem.setValue(managedCategory, forKey: "category")
             
+        }*/
+        
+        if let managedCategory = managedCategoryForName(todo.todoCategory?.categoryName) {
+             todoItem.setValue(managedCategory, forKey: "category")
         }
+        
         
         //4
         do {
@@ -190,6 +197,29 @@ class CoreDataManager {
         //5
         managedCategories.removeAtIndex(index)
         todoCategories = converter.convertNSManagedObjectsToTodoCategories(managedCategories)
+    }
+    
+    func categoryForName(categoryName: String) -> TodoCategory? {
+        
+        for category in todoCategories {
+            if category.categoryName == categoryName {
+                return category
+            }
+        }
+        
+        return nil
+    }
+    
+    func managedCategoryForName(categoryName: String?) -> NSManagedObject? {
+        
+        for category in managedCategories {
+            let catNameString = category.valueForKey("CategoryName")as! String
+            if  catNameString == categoryName {
+                return category
+            }
+        }
+        
+        return nil
     }
 
 
